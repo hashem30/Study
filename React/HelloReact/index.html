@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>thenewboston</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <div id="content"></div>
+
+    <script type="text/jsx">
+    
+        var BuckysComponent = React.createClass({
+            render: function() {
+                return (
+                        <h2>My name is {this.props.name}, I like eat {this.props.food}</h2>
+                );
+            }
+        });
+
+        var JohnnyChildren = React.createClass({
+            dosomething: function(){ //event
+                alert("The text displaying is: " + this.props.children);
+            },
+            render: function() {
+                return (
+                        <div>
+                            <h3>{this.props.user}</h3>
+                            <p>{this.props.children}</p>
+                            <a onClick={this.dosomething} href="#">Click Me</a>
+                        </div>
+                );
+            }
+        });
+
+       // React.render(<BuckysComponent />, document.getElementById('content'));
+
+        React.render(
+                <div>
+                    <BuckysComponent name="johnny" food="bacon"/>
+                    <BuckysComponent name="jinjing" food="beef"/>
+                    <BuckysComponent name="baobao" food="tuna"/>
+                    <BuckysComponent name="xiao" food="ham"/>
+                    <JohnnyChildren user="Rong">This guy is awesome</JohnnyChildren>
+                    <JohnnyChildren user="Amei">This girl is beautiful</JohnnyChildren>
+                </div>,
+                document.getElementById('content')
+        );
+
+    </script>
+
+</body>
+</html>

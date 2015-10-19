@@ -1,0 +1,28 @@
+React JS Tutorial for Beginners - 1 - Introduction
+https://www.youtube.com/watch?v=4ZAEBxGipoA
+
+https://github.com/buckyroberts
+
+==>HelloReact
+
+---------------------------------
+Using React.js - Part 1/8 - Components
+https://www.youtube.com/watch?v=N98ACjjJABw&index=1
+==>Jesse
+
+---------------------------------------
+
+in Intellij IDEA
+Create project->Static Web->Static Web
+
+edit configuration, add 'Firefox Remote'
+
+--------------------------------------------
+install jsx compiler
+
+1. start terminal in Intellij IDEA, you should in the current working folder
+2. run 'npm install -g jsx' to install jsx
+3. run 'mkdir build' to create a folder named 'build' along with component folder
+4. run 'jsx -x jsx components/ build/'
+
+
