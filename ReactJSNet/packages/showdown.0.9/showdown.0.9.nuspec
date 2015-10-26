@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>showdown</id>
+    <version>0.9</version>
+    <title>showdown</title>
+    <authors>John Fraser</authors>
+    <owners>John Fraser</owners>
+    <licenseUrl>https://raw.github.com/coreyti/showdown/master/license.txt</licenseUrl>
+    <projectUrl>https://github.com/coreyti/showdown</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Showdown is a javascript port of Markdown (markup language).</description>
+    <copyright>(c) 2007, John Fraser</copyright>
+    <language>en-US</language>
+  </metadata>
+</package>
