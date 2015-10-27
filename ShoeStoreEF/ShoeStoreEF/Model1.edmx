@@ -1,0 +1,1573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ShoeStore2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administrators">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="Tel" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="ValidFrom" Type="datetime" Nullable="false" />
+          <Property Name="ValidTo" Type="datetime" Nullable="false" />
+          <Property Name="IsActivated" Type="bit" Nullable="false" />
+          <Property Name="LoginTimes" Type="int" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatedById" Type="int" Nullable="false" />
+          <Property Name="CreatedByName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedById" Type="int" Nullable="false" />
+          <Property Name="UpdatedByName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdminRoles">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="Tel" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="IsActivated" Type="bit" Nullable="false" />
+          <Property Name="LoginTimes" Type="int" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatedById" Type="int" Nullable="false" />
+          <Property Name="CreatedByName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedById" Type="int" Nullable="false" />
+          <Property Name="UpdatedByName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MailSettings">
+          <Key>
+            <PropertyRef Name="MailSettingId" />
+          </Key>
+          <Property Name="MailSettingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SmtpServer" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SmtpPort" Type="int" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailPassword" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MenuCategories">
+          <Key>
+            <PropertyRef Name="MenuCategoryId" />
+          </Key>
+          <Property Name="MenuCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuCategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menus">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MenuCategoryId" Type="int" Nullable="false" />
+          <Property Name="PageLink" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ToolTip" Type="nvarchar" MaxLength="100" />
+          <Property Name="Image" Type="varchar" MaxLength="200" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+          <Property Name="IsDisplay" Type="bit" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PageBindings">
+          <Key>
+            <PropertyRef Name="PageBindingId" />
+          </Key>
+          <Property Name="PageBindingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PageTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MenuCategoryId" Type="int" Nullable="false" />
+          <Property Name="ListMenuId" Type="int" Nullable="false" />
+          <Property Name="AddMenuId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PermissionCategories">
+          <Key>
+            <PropertyRef Name="PermissionCategoryId" />
+          </Key>
+          <Property Name="PermissionCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PermissionCategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="PermissionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PermissionName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PermissionCategoryId" Type="int" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductCategories">
+          <Key>
+            <PropertyRef Name="ProductCategoryId" />
+          </Key>
+          <Property Name="ProductCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductCategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="ImageData" Type="varbinary(max)" />
+          <Property Name="ImageMimeType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RolePermissions">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SalesOrderItems">
+          <Key>
+            <PropertyRef Name="SalesOrderId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="SalesOrderId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SalesOrders">
+          <Key>
+            <PropertyRef Name="SalesOrderId" />
+          </Key>
+          <Property Name="SalesOrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="SalesOrderStatusId" Type="int" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatedById" Type="int" Nullable="false" />
+          <Property Name="CreatedByName" Type="varchar" MaxLength="50" />
+          <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedById" Type="int" Nullable="false" />
+          <Property Name="UpdatedByName" Type="varchar" MaxLength="50" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SalesOrderStatus">
+          <Key>
+            <PropertyRef Name="SalesOrderStatusId" />
+          </Key>
+          <Property Name="SalesOrderStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalesOrderStatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActivated" Type="bit" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TopMenuBindings">
+          <Key>
+            <PropertyRef Name="TopMenuId" />
+            <PropertyRef Name="MenuCategoryId" />
+          </Key>
+          <Property Name="TopMenuId" Type="int" Nullable="false" />
+          <Property Name="MenuCategoryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TopMenus">
+          <Key>
+            <PropertyRef Name="TopMenuId" />
+          </Key>
+          <Property Name="TopMenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TopMenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ToolTip" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PageLink" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ShoeStore2.dbo.View_AdminRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_AdminRole">
+          <Key>
+            <PropertyRef Name="AdminId" />
+            <PropertyRef Name="AdminName" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="RoleName" />
+          </Key>
+          <Property Name="AdminId" Type="int" Nullable="false" />
+          <Property Name="AdminName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ShoeStore2.dbo.View_Menu' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_Menu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+            <PropertyRef Name="MenuName" />
+            <PropertyRef Name="MenuCategoryId" />
+            <PropertyRef Name="MenuCategoryName" />
+            <PropertyRef Name="PageLink" />
+            <PropertyRef Name="PermissionId" />
+            <PropertyRef Name="IsDisplay" />
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="MenuId" Type="int" Nullable="false" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MenuCategoryId" Type="int" Nullable="false" />
+          <Property Name="MenuCategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PageLink" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ToolTip" Type="nvarchar" MaxLength="100" />
+          <Property Name="Image" Type="varchar" MaxLength="200" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+          <Property Name="IsDisplay" Type="bit" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ShoeStore2.dbo.View_PageBinding' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_PageBinding">
+          <Key>
+            <PropertyRef Name="PageBindingId" />
+            <PropertyRef Name="PageTitle" />
+            <PropertyRef Name="MenuCategoryId" />
+            <PropertyRef Name="MenuCategoryName" />
+            <PropertyRef Name="ListMenuId" />
+            <PropertyRef Name="ListMenuName" />
+            <PropertyRef Name="AddMenuId" />
+            <PropertyRef Name="AddMenuName" />
+          </Key>
+          <Property Name="PageBindingId" Type="int" Nullable="false" />
+          <Property Name="PageTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MenuCategoryId" Type="int" Nullable="false" />
+          <Property Name="MenuCategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ListMenuId" Type="int" Nullable="false" />
+          <Property Name="ListMenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddMenuId" Type="int" Nullable="false" />
+          <Property Name="AddMenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ShoeStore2.dbo.View_Permission' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_Permission">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+            <PropertyRef Name="PermissionName" />
+            <PropertyRef Name="PermissionCategoryName" />
+          </Key>
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+          <Property Name="PermissionName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PermissionCategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ShoeStore2.dbo.View_Product' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="ProductName" />
+            <PropertyRef Name="ProductCategoryId" />
+            <PropertyRef Name="ProductCategoryName" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="Price" />
+          </Key>
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="int" Nullable="false" />
+          <Property Name="ProductCategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="ImageData" Type="varbinary(max)" />
+          <Property Name="ImageMimeType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ShoeStore2.dbo.View_SalesOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_SalesOrder">
+          <Key>
+            <PropertyRef Name="SalesOrderId" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="CustomerName" />
+            <PropertyRef Name="SalesOrderStatusId" />
+            <PropertyRef Name="SalesOrderStatusName" />
+            <PropertyRef Name="CreatedTime" />
+            <PropertyRef Name="CreatedById" />
+            <PropertyRef Name="UpdatedTime" />
+            <PropertyRef Name="UpdatedById" />
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="SalesOrderId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SalesOrderStatusId" Type="int" Nullable="false" />
+          <Property Name="SalesOrderStatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatedById" Type="int" Nullable="false" />
+          <Property Name="CreatedByName" Type="varchar" MaxLength="50" />
+          <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedById" Type="int" Nullable="false" />
+          <Property Name="UpdatedByName" Type="varchar" MaxLength="50" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AdminRoles_Admin">
+          <End Role="Administrators" Type="Self.Administrators" Multiplicity="1" />
+          <End Role="AdminRoles" Type="Self.AdminRoles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Administrators">
+              <PropertyRef Name="AdminId" />
+            </Principal>
+            <Dependent Role="AdminRoles">
+              <PropertyRef Name="AdminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdminRoles_Role">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="AdminRoles" Type="Self.AdminRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="AdminRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menus_Category">
+          <End Role="MenuCategories" Type="Self.MenuCategories" Multiplicity="1" />
+          <End Role="Menus" Type="Self.Menus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuCategories">
+              <PropertyRef Name="MenuCategoryId" />
+            </Principal>
+            <Dependent Role="Menus">
+              <PropertyRef Name="MenuCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PageBindings_AddMenu">
+          <End Role="Menus" Type="Self.Menus" Multiplicity="1" />
+          <End Role="PageBindings" Type="Self.PageBindings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menus">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="PageBindings">
+              <PropertyRef Name="AddMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PageBindings_ListMenu">
+          <End Role="Menus" Type="Self.Menus" Multiplicity="1" />
+          <End Role="PageBindings" Type="Self.PageBindings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menus">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="PageBindings">
+              <PropertyRef Name="ListMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PageBindings_MenuCategory">
+          <End Role="MenuCategories" Type="Self.MenuCategories" Multiplicity="1" />
+          <End Role="PageBindings" Type="Self.PageBindings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuCategories">
+              <PropertyRef Name="MenuCategoryId" />
+            </Principal>
+            <Dependent Role="PageBindings">
+              <PropertyRef Name="MenuCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permissions_Category">
+          <End Role="PermissionCategories" Type="Self.PermissionCategories" Multiplicity="1" />
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PermissionCategories">
+              <PropertyRef Name="PermissionCategoryId" />
+            </Principal>
+            <Dependent Role="Permissions">
+              <PropertyRef Name="PermissionCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Category">
+          <End Role="ProductCategories" Type="Self.ProductCategories" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategories">
+              <PropertyRef Name="ProductCategoryId" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="ProductCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermissions_Permission">
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="1" />
+          <End Role="RolePermissions" Type="Self.RolePermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissions">
+              <PropertyRef Name="PermissionId" />
+            </Principal>
+            <Dependent Role="RolePermissions">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermissions_Role">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="RolePermissions" Type="Self.RolePermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RolePermissions">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesOrderItems_Product">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="SalesOrderItems" Type="Self.SalesOrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="SalesOrderItems">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesOrderItems_SalesOrder">
+          <End Role="SalesOrders" Type="Self.SalesOrders" Multiplicity="1" />
+          <End Role="SalesOrderItems" Type="Self.SalesOrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesOrders">
+              <PropertyRef Name="SalesOrderId" />
+            </Principal>
+            <Dependent Role="SalesOrderItems">
+              <PropertyRef Name="SalesOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesOrders_Customer">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="SalesOrders" Type="Self.SalesOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="SalesOrders">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesOrders_OrderStatus">
+          <End Role="SalesOrderStatus" Type="Self.SalesOrderStatus" Multiplicity="1" />
+          <End Role="SalesOrders" Type="Self.SalesOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesOrderStatus">
+              <PropertyRef Name="SalesOrderStatusId" />
+            </Principal>
+            <Dependent Role="SalesOrders">
+              <PropertyRef Name="SalesOrderStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TopMenuBindings_MenuCategory">
+          <End Role="MenuCategories" Type="Self.MenuCategories" Multiplicity="1" />
+          <End Role="TopMenuBindings" Type="Self.TopMenuBindings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuCategories">
+              <PropertyRef Name="MenuCategoryId" />
+            </Principal>
+            <Dependent Role="TopMenuBindings">
+              <PropertyRef Name="MenuCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TopMenuBindings_TopMenu">
+          <End Role="TopMenus" Type="Self.TopMenus" Multiplicity="1" />
+          <End Role="TopMenuBindings" Type="Self.TopMenuBindings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TopMenus">
+              <PropertyRef Name="TopMenuId" />
+            </Principal>
+            <Dependent Role="TopMenuBindings">
+              <PropertyRef Name="TopMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_SequenceMove" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tbl" Type="nvarchar" Mode="In" />
+          <Parameter Name="primarykey" Type="nvarchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="sequence" Type="int" Mode="In" />
+          <Parameter Name="direction" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="ShoeStore2ModelStoreContainer">
+          <EntitySet Name="Administrators" EntityType="Self.Administrators" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdminRoles" EntityType="Self.AdminRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MailSettings" EntityType="Self.MailSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuCategories" EntityType="Self.MenuCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menus" EntityType="Self.Menus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PageBindings" EntityType="Self.PageBindings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PermissionCategories" EntityType="Self.PermissionCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCategories" EntityType="Self.ProductCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolePermissions" EntityType="Self.RolePermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesOrderItems" EntityType="Self.SalesOrderItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesOrders" EntityType="Self.SalesOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesOrderStatus" EntityType="Self.SalesOrderStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TopMenuBindings" EntityType="Self.TopMenuBindings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TopMenus" EntityType="Self.TopMenus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_AdminRole" EntityType="Self.View_AdminRole" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_AdminRole].[AdminId] AS [AdminId], 
+    [View_AdminRole].[AdminName] AS [AdminName], 
+    [View_AdminRole].[RoleId] AS [RoleId], 
+    [View_AdminRole].[RoleName] AS [RoleName]
+    FROM [dbo].[View_AdminRole] AS [View_AdminRole]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_Menu" EntityType="Self.View_Menu" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_Menu].[MenuId] AS [MenuId], 
+    [View_Menu].[MenuName] AS [MenuName], 
+    [View_Menu].[MenuCategoryId] AS [MenuCategoryId], 
+    [View_Menu].[MenuCategoryName] AS [MenuCategoryName], 
+    [View_Menu].[PageLink] AS [PageLink], 
+    [View_Menu].[ToolTip] AS [ToolTip], 
+    [View_Menu].[Image] AS [Image], 
+    [View_Menu].[PermissionId] AS [PermissionId], 
+    [View_Menu].[IsDisplay] AS [IsDisplay], 
+    [View_Menu].[Sequence] AS [Sequence]
+    FROM [dbo].[View_Menu] AS [View_Menu]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_PageBinding" EntityType="Self.View_PageBinding" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_PageBinding].[PageBindingId] AS [PageBindingId], 
+    [View_PageBinding].[PageTitle] AS [PageTitle], 
+    [View_PageBinding].[MenuCategoryId] AS [MenuCategoryId], 
+    [View_PageBinding].[MenuCategoryName] AS [MenuCategoryName], 
+    [View_PageBinding].[ListMenuId] AS [ListMenuId], 
+    [View_PageBinding].[ListMenuName] AS [ListMenuName], 
+    [View_PageBinding].[AddMenuId] AS [AddMenuId], 
+    [View_PageBinding].[AddMenuName] AS [AddMenuName]
+    FROM [dbo].[View_PageBinding] AS [View_PageBinding]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_Permission" EntityType="Self.View_Permission" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_Permission].[PermissionId] AS [PermissionId], 
+    [View_Permission].[PermissionName] AS [PermissionName], 
+    [View_Permission].[PermissionCategoryName] AS [PermissionCategoryName]
+    FROM [dbo].[View_Permission] AS [View_Permission]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_Product" EntityType="Self.View_Product" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_Product].[ProductId] AS [ProductId], 
+    [View_Product].[ProductName] AS [ProductName], 
+    [View_Product].[ProductCategoryId] AS [ProductCategoryId], 
+    [View_Product].[ProductCategoryName] AS [ProductCategoryName], 
+    [View_Product].[Description] AS [Description], 
+    [View_Product].[Price] AS [Price], 
+    [View_Product].[ImageData] AS [ImageData], 
+    [View_Product].[ImageMimeType] AS [ImageMimeType]
+    FROM [dbo].[View_Product] AS [View_Product]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_SalesOrder" EntityType="Self.View_SalesOrder" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_SalesOrder].[SalesOrderId] AS [SalesOrderId], 
+    [View_SalesOrder].[CustomerId] AS [CustomerId], 
+    [View_SalesOrder].[CustomerName] AS [CustomerName], 
+    [View_SalesOrder].[SalesOrderStatusId] AS [SalesOrderStatusId], 
+    [View_SalesOrder].[SalesOrderStatusName] AS [SalesOrderStatusName], 
+    [View_SalesOrder].[CreatedTime] AS [CreatedTime], 
+    [View_SalesOrder].[CreatedById] AS [CreatedById], 
+    [View_SalesOrder].[CreatedByName] AS [CreatedByName], 
+    [View_SalesOrder].[UpdatedTime] AS [UpdatedTime], 
+    [View_SalesOrder].[UpdatedById] AS [UpdatedById], 
+    [View_SalesOrder].[UpdatedByName] AS [UpdatedByName], 
+    [View_SalesOrder].[Sequence] AS [Sequence]
+    FROM [dbo].[View_SalesOrder] AS [View_SalesOrder]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_AdminRoles_Admin" Association="Self.FK_AdminRoles_Admin">
+            <End Role="Administrators" EntitySet="Administrators" />
+            <End Role="AdminRoles" EntitySet="AdminRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdminRoles_Role" Association="Self.FK_AdminRoles_Role">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="AdminRoles" EntitySet="AdminRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menus_Category" Association="Self.FK_Menus_Category">
+            <End Role="MenuCategories" EntitySet="MenuCategories" />
+            <End Role="Menus" EntitySet="Menus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PageBindings_AddMenu" Association="Self.FK_PageBindings_AddMenu">
+            <End Role="Menus" EntitySet="Menus" />
+            <End Role="PageBindings" EntitySet="PageBindings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PageBindings_ListMenu" Association="Self.FK_PageBindings_ListMenu">
+            <End Role="Menus" EntitySet="Menus" />
+            <End Role="PageBindings" EntitySet="PageBindings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PageBindings_MenuCategory" Association="Self.FK_PageBindings_MenuCategory">
+            <End Role="MenuCategories" EntitySet="MenuCategories" />
+            <End Role="PageBindings" EntitySet="PageBindings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permissions_Category" Association="Self.FK_Permissions_Category">
+            <End Role="PermissionCategories" EntitySet="PermissionCategories" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Category" Association="Self.FK_Products_Category">
+            <End Role="ProductCategories" EntitySet="ProductCategories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermissions_Permission" Association="Self.FK_RolePermissions_Permission">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="RolePermissions" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermissions_Role" Association="Self.FK_RolePermissions_Role">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RolePermissions" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrderItems_Product" Association="Self.FK_SalesOrderItems_Product">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SalesOrderItems" EntitySet="SalesOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrderItems_SalesOrder" Association="Self.FK_SalesOrderItems_SalesOrder">
+            <End Role="SalesOrders" EntitySet="SalesOrders" />
+            <End Role="SalesOrderItems" EntitySet="SalesOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrders_Customer" Association="Self.FK_SalesOrders_Customer">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="SalesOrders" EntitySet="SalesOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrders_OrderStatus" Association="Self.FK_SalesOrders_OrderStatus">
+            <End Role="SalesOrderStatus" EntitySet="SalesOrderStatus" />
+            <End Role="SalesOrders" EntitySet="SalesOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TopMenuBindings_MenuCategory" Association="Self.FK_TopMenuBindings_MenuCategory">
+            <End Role="MenuCategories" EntitySet="MenuCategories" />
+            <End Role="TopMenuBindings" EntitySet="TopMenuBindings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TopMenuBindings_TopMenu" Association="Self.FK_TopMenuBindings_TopMenu">
+            <End Role="TopMenus" EntitySet="TopMenus" />
+            <End Role="TopMenuBindings" EntitySet="TopMenuBindings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShoeStore2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ValidFrom" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ValidTo" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActivated" Type="Boolean" Nullable="false" />
+          <Property Name="LoginTimes" Type="Int32" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedById" Type="Int32" Nullable="false" />
+          <Property Name="CreatedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedById" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AdminRole" Relationship="Self.FK_AdminRoles_Admin" FromRole="Administrators" ToRole="AdminRoles" />
+        </EntityType>
+        <EntityType Name="AdminRole">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Administrator" Relationship="Self.FK_AdminRoles_Admin" FromRole="AdminRoles" ToRole="Administrators" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_AdminRoles_Role" FromRole="AdminRoles" ToRole="Roles" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActivated" Type="Boolean" Nullable="false" />
+          <Property Name="LoginTimes" Type="Int32" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedById" Type="Int32" Nullable="false" />
+          <Property Name="CreatedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedById" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SalesOrders" Relationship="Self.FK_SalesOrders_Customer" FromRole="Customers" ToRole="SalesOrders" />
+        </EntityType>
+        <EntityType Name="MailSetting">
+          <Key>
+            <PropertyRef Name="MailSettingId" />
+          </Key>
+          <Property Name="MailSettingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SmtpServer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SmtpPort" Type="Int32" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MenuCategory">
+          <Key>
+            <PropertyRef Name="MenuCategoryId" />
+          </Key>
+          <Property Name="MenuCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Menus" Relationship="Self.FK_Menus_Category" FromRole="MenuCategories" ToRole="Menus" />
+          <NavigationProperty Name="PageBindings" Relationship="Self.FK_PageBindings_MenuCategory" FromRole="MenuCategories" ToRole="PageBindings" />
+          <NavigationProperty Name="TopMenus" Relationship="Self.TopMenuBindings" FromRole="MenuCategories" ToRole="TopMenus" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MenuCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="PageLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ToolTip" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+          <Property Name="IsDisplay" Type="Boolean" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MenuCategory" Relationship="Self.FK_Menus_Category" FromRole="Menus" ToRole="MenuCategories" />
+          <NavigationProperty Name="PageBindings" Relationship="Self.FK_PageBindings_AddMenu" FromRole="Menus" ToRole="PageBindings" />
+          <NavigationProperty Name="PageBindings1" Relationship="Self.FK_PageBindings_ListMenu" FromRole="Menus" ToRole="PageBindings" />
+        </EntityType>
+        <EntityType Name="PageBinding">
+          <Key>
+            <PropertyRef Name="PageBindingId" />
+          </Key>
+          <Property Name="PageBindingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PageTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MenuCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="ListMenuId" Type="Int32" Nullable="false" />
+          <Property Name="AddMenuId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MenuCategory" Relationship="Self.FK_PageBindings_MenuCategory" FromRole="PageBindings" ToRole="MenuCategories" />
+          <NavigationProperty Name="Menu" Relationship="Self.FK_PageBindings_AddMenu" FromRole="PageBindings" ToRole="Menus" />
+          <NavigationProperty Name="Menu1" Relationship="Self.FK_PageBindings_ListMenu" FromRole="PageBindings" ToRole="Menus" />
+        </EntityType>
+        <EntityType Name="PermissionCategory">
+          <Key>
+            <PropertyRef Name="PermissionCategoryId" />
+          </Key>
+          <Property Name="PermissionCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PermissionCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Permissions" Relationship="Self.FK_Permissions_Category" FromRole="PermissionCategories" ToRole="Permissions" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="PermissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PermissionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PermissionCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PermissionCategory" Relationship="Self.FK_Permissions_Category" FromRole="Permissions" ToRole="PermissionCategories" />
+          <NavigationProperty Name="Roles" Relationship="Self.RolePermissions" FromRole="Permissions" ToRole="Roles" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="ProductCategoryId" />
+          </Key>
+          <Property Name="ProductCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Category" FromRole="ProductCategories" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageMimeType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProductCategory" Relationship="Self.FK_Products_Category" FromRole="Products" ToRole="ProductCategories" />
+          <NavigationProperty Name="SalesOrderItems" Relationship="Self.FK_SalesOrderItems_Product" FromRole="Products" ToRole="SalesOrderItems" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AdminRoles" Relationship="Self.FK_AdminRoles_Role" FromRole="Roles" ToRole="AdminRoles" />
+          <NavigationProperty Name="Permissions" Relationship="Self.RolePermissions" FromRole="Roles" ToRole="Permissions" />
+        </EntityType>
+        <EntityType Name="SalesOrderItem">
+          <Key>
+            <PropertyRef Name="SalesOrderId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="SalesOrderId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_SalesOrderItems_Product" FromRole="SalesOrderItems" ToRole="Products" />
+          <NavigationProperty Name="SalesOrder" Relationship="Self.FK_SalesOrderItems_SalesOrder" FromRole="SalesOrderItems" ToRole="SalesOrders" />
+        </EntityType>
+        <EntityType Name="SalesOrder">
+          <Key>
+            <PropertyRef Name="SalesOrderId" />
+          </Key>
+          <Property Name="SalesOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="SalesOrderStatusId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedById" Type="Int32" Nullable="false" />
+          <Property Name="CreatedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedById" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_SalesOrders_Customer" FromRole="SalesOrders" ToRole="Customers" />
+          <NavigationProperty Name="SalesOrderItems" Relationship="Self.FK_SalesOrderItems_SalesOrder" FromRole="SalesOrders" ToRole="SalesOrderItems" />
+          <NavigationProperty Name="SalesOrderStatu" Relationship="Self.FK_SalesOrders_OrderStatus" FromRole="SalesOrders" ToRole="SalesOrderStatus" />
+        </EntityType>
+        <EntityType Name="SalesOrderStatu">
+          <Key>
+            <PropertyRef Name="SalesOrderStatusId" />
+          </Key>
+          <Property Name="SalesOrderStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesOrderStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActivated" Type="Boolean" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SalesOrders" Relationship="Self.FK_SalesOrders_OrderStatus" FromRole="SalesOrderStatus" ToRole="SalesOrders" />
+        </EntityType>
+        <EntityType Name="TopMenu">
+          <Key>
+            <PropertyRef Name="TopMenuId" />
+          </Key>
+          <Property Name="TopMenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TopMenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ToolTip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PageLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MenuCategories" Relationship="Self.TopMenuBindings" FromRole="TopMenus" ToRole="MenuCategories" />
+        </EntityType>
+        <EntityType Name="View_AdminRole">
+          <Key>
+            <PropertyRef Name="AdminId" />
+            <PropertyRef Name="AdminName" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="RoleName" />
+          </Key>
+          <Property Name="AdminId" Type="Int32" Nullable="false" />
+          <Property Name="AdminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="View_Menu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+            <PropertyRef Name="MenuName" />
+            <PropertyRef Name="MenuCategoryId" />
+            <PropertyRef Name="MenuCategoryName" />
+            <PropertyRef Name="PageLink" />
+            <PropertyRef Name="PermissionId" />
+            <PropertyRef Name="IsDisplay" />
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="MenuId" Type="Int32" Nullable="false" />
+          <Property Name="MenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MenuCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="MenuCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PageLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ToolTip" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+          <Property Name="IsDisplay" Type="Boolean" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="View_PageBinding">
+          <Key>
+            <PropertyRef Name="PageBindingId" />
+            <PropertyRef Name="PageTitle" />
+            <PropertyRef Name="MenuCategoryId" />
+            <PropertyRef Name="MenuCategoryName" />
+            <PropertyRef Name="ListMenuId" />
+            <PropertyRef Name="ListMenuName" />
+            <PropertyRef Name="AddMenuId" />
+            <PropertyRef Name="AddMenuName" />
+          </Key>
+          <Property Name="PageBindingId" Type="Int32" Nullable="false" />
+          <Property Name="PageTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MenuCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="MenuCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ListMenuId" Type="Int32" Nullable="false" />
+          <Property Name="ListMenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddMenuId" Type="Int32" Nullable="false" />
+          <Property Name="AddMenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="View_Permission">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+            <PropertyRef Name="PermissionName" />
+            <PropertyRef Name="PermissionCategoryName" />
+          </Key>
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+          <Property Name="PermissionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PermissionCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="View_Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="ProductName" />
+            <PropertyRef Name="ProductCategoryId" />
+            <PropertyRef Name="ProductCategoryName" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="Price" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="ProductCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageMimeType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="View_SalesOrder">
+          <Key>
+            <PropertyRef Name="SalesOrderId" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="CustomerName" />
+            <PropertyRef Name="SalesOrderStatusId" />
+            <PropertyRef Name="SalesOrderStatusName" />
+            <PropertyRef Name="CreatedTime" />
+            <PropertyRef Name="CreatedById" />
+            <PropertyRef Name="UpdatedTime" />
+            <PropertyRef Name="UpdatedById" />
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="SalesOrderId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SalesOrderStatusId" Type="Int32" Nullable="false" />
+          <Property Name="SalesOrderStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedById" Type="Int32" Nullable="false" />
+          <Property Name="CreatedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedById" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AdminRoles_Admin">
+          <End Role="Administrators" Type="Self.Administrator" Multiplicity="1" />
+          <End Role="AdminRoles" Type="Self.AdminRole" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Administrators">
+              <PropertyRef Name="AdminId" />
+            </Principal>
+            <Dependent Role="AdminRoles">
+              <PropertyRef Name="AdminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdminRoles_Role">
+          <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+          <End Role="AdminRoles" Type="Self.AdminRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="AdminRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesOrders_Customer">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+          <End Role="SalesOrders" Type="Self.SalesOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="SalesOrders">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menus_Category">
+          <End Role="MenuCategories" Type="Self.MenuCategory" Multiplicity="1" />
+          <End Role="Menus" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuCategories">
+              <PropertyRef Name="MenuCategoryId" />
+            </Principal>
+            <Dependent Role="Menus">
+              <PropertyRef Name="MenuCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PageBindings_MenuCategory">
+          <End Role="MenuCategories" Type="Self.MenuCategory" Multiplicity="1" />
+          <End Role="PageBindings" Type="Self.PageBinding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuCategories">
+              <PropertyRef Name="MenuCategoryId" />
+            </Principal>
+            <Dependent Role="PageBindings">
+              <PropertyRef Name="MenuCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PageBindings_AddMenu">
+          <End Role="Menus" Type="Self.Menu" Multiplicity="1" />
+          <End Role="PageBindings" Type="Self.PageBinding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menus">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="PageBindings">
+              <PropertyRef Name="AddMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PageBindings_ListMenu">
+          <End Role="Menus" Type="Self.Menu" Multiplicity="1" />
+          <End Role="PageBindings" Type="Self.PageBinding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menus">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="PageBindings">
+              <PropertyRef Name="ListMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permissions_Category">
+          <End Role="PermissionCategories" Type="Self.PermissionCategory" Multiplicity="1" />
+          <End Role="Permissions" Type="Self.Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PermissionCategories">
+              <PropertyRef Name="PermissionCategoryId" />
+            </Principal>
+            <Dependent Role="Permissions">
+              <PropertyRef Name="PermissionCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Category">
+          <End Role="ProductCategories" Type="Self.ProductCategory" Multiplicity="1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategories">
+              <PropertyRef Name="ProductCategoryId" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="ProductCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesOrderItems_Product">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="SalesOrderItems" Type="Self.SalesOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="SalesOrderItems">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesOrderItems_SalesOrder">
+          <End Role="SalesOrders" Type="Self.SalesOrder" Multiplicity="1" />
+          <End Role="SalesOrderItems" Type="Self.SalesOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesOrders">
+              <PropertyRef Name="SalesOrderId" />
+            </Principal>
+            <Dependent Role="SalesOrderItems">
+              <PropertyRef Name="SalesOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesOrders_OrderStatus">
+          <End Role="SalesOrderStatus" Type="Self.SalesOrderStatu" Multiplicity="1" />
+          <End Role="SalesOrders" Type="Self.SalesOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesOrderStatus">
+              <PropertyRef Name="SalesOrderStatusId" />
+            </Principal>
+            <Dependent Role="SalesOrders">
+              <PropertyRef Name="SalesOrderStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RolePermissions">
+          <End Role="Permissions" Type="Self.Permission" Multiplicity="*" />
+          <End Role="Roles" Type="Self.Role" Multiplicity="*" />
+        </Association>
+        <Association Name="TopMenuBindings">
+          <End Role="MenuCategories" Type="Self.MenuCategory" Multiplicity="*" />
+          <End Role="TopMenus" Type="Self.TopMenu" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ShoeStore2Entities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administrators" EntityType="Self.Administrator" />
+          <EntitySet Name="AdminRoles" EntityType="Self.AdminRole" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="MailSettings" EntityType="Self.MailSetting" />
+          <EntitySet Name="MenuCategories" EntityType="Self.MenuCategory" />
+          <EntitySet Name="Menus" EntityType="Self.Menu" />
+          <EntitySet Name="PageBindings" EntityType="Self.PageBinding" />
+          <EntitySet Name="PermissionCategories" EntityType="Self.PermissionCategory" />
+          <EntitySet Name="Permissions" EntityType="Self.Permission" />
+          <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="SalesOrderItems" EntityType="Self.SalesOrderItem" />
+          <EntitySet Name="SalesOrders" EntityType="Self.SalesOrder" />
+          <EntitySet Name="SalesOrderStatus" EntityType="Self.SalesOrderStatu" />
+          <EntitySet Name="TopMenus" EntityType="Self.TopMenu" />
+          <EntitySet Name="View_AdminRole" EntityType="Self.View_AdminRole" />
+          <EntitySet Name="View_Menu" EntityType="Self.View_Menu" />
+          <EntitySet Name="View_PageBinding" EntityType="Self.View_PageBinding" />
+          <EntitySet Name="View_Permission" EntityType="Self.View_Permission" />
+          <EntitySet Name="View_Product" EntityType="Self.View_Product" />
+          <EntitySet Name="View_SalesOrder" EntityType="Self.View_SalesOrder" />
+          <AssociationSet Name="FK_AdminRoles_Admin" Association="Self.FK_AdminRoles_Admin">
+            <End Role="Administrators" EntitySet="Administrators" />
+            <End Role="AdminRoles" EntitySet="AdminRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdminRoles_Role" Association="Self.FK_AdminRoles_Role">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="AdminRoles" EntitySet="AdminRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrders_Customer" Association="Self.FK_SalesOrders_Customer">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="SalesOrders" EntitySet="SalesOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menus_Category" Association="Self.FK_Menus_Category">
+            <End Role="MenuCategories" EntitySet="MenuCategories" />
+            <End Role="Menus" EntitySet="Menus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PageBindings_MenuCategory" Association="Self.FK_PageBindings_MenuCategory">
+            <End Role="MenuCategories" EntitySet="MenuCategories" />
+            <End Role="PageBindings" EntitySet="PageBindings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PageBindings_AddMenu" Association="Self.FK_PageBindings_AddMenu">
+            <End Role="Menus" EntitySet="Menus" />
+            <End Role="PageBindings" EntitySet="PageBindings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PageBindings_ListMenu" Association="Self.FK_PageBindings_ListMenu">
+            <End Role="Menus" EntitySet="Menus" />
+            <End Role="PageBindings" EntitySet="PageBindings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permissions_Category" Association="Self.FK_Permissions_Category">
+            <End Role="PermissionCategories" EntitySet="PermissionCategories" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Category" Association="Self.FK_Products_Category">
+            <End Role="ProductCategories" EntitySet="ProductCategories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrderItems_Product" Association="Self.FK_SalesOrderItems_Product">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SalesOrderItems" EntitySet="SalesOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrderItems_SalesOrder" Association="Self.FK_SalesOrderItems_SalesOrder">
+            <End Role="SalesOrders" EntitySet="SalesOrders" />
+            <End Role="SalesOrderItems" EntitySet="SalesOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrders_OrderStatus" Association="Self.FK_SalesOrders_OrderStatus">
+            <End Role="SalesOrderStatus" EntitySet="SalesOrderStatus" />
+            <End Role="SalesOrders" EntitySet="SalesOrders" />
+          </AssociationSet>
+          <AssociationSet Name="RolePermissions" Association="Self.RolePermissions">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="Roles" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="TopMenuBindings" Association="Self.TopMenuBindings">
+            <End Role="MenuCategories" EntitySet="MenuCategories" />
+            <End Role="TopMenus" EntitySet="TopMenus" />
+          </AssociationSet>
+          <FunctionImport Name="sp_SequenceMove">
+            <Parameter Name="tbl" Mode="In" Type="String" />
+            <Parameter Name="primarykey" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="sequence" Mode="In" Type="Int32" />
+            <Parameter Name="direction" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShoeStore2ModelStoreContainer" CdmEntityContainer="ShoeStore2Entities2">
+          <EntitySetMapping Name="Administrators">
+            <EntityTypeMapping TypeName="ShoeStore2Model.Administrator">
+              <MappingFragment StoreEntitySet="Administrators">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ValidFrom" ColumnName="ValidFrom" />
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
+                <ScalarProperty Name="IsActivated" ColumnName="IsActivated" />
+                <ScalarProperty Name="LoginTimes" ColumnName="LoginTimes" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="UpdatedById" ColumnName="UpdatedById" />
+                <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdminRoles">
+            <EntityTypeMapping TypeName="ShoeStore2Model.AdminRole">
+              <MappingFragment StoreEntitySet="AdminRoles">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="ShoeStore2Model.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsActivated" ColumnName="IsActivated" />
+                <ScalarProperty Name="LoginTimes" ColumnName="LoginTimes" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="UpdatedById" ColumnName="UpdatedById" />
+                <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MailSettings">
+            <EntityTypeMapping TypeName="ShoeStore2Model.MailSetting">
+              <MappingFragment StoreEntitySet="MailSettings">
+                <ScalarProperty Name="MailSettingId" ColumnName="MailSettingId" />
+                <ScalarProperty Name="SmtpServer" ColumnName="SmtpServer" />
+                <ScalarProperty Name="SmtpPort" ColumnName="SmtpPort" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="EmailPassword" ColumnName="EmailPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuCategories">
+            <EntityTypeMapping TypeName="ShoeStore2Model.MenuCategory">
+              <MappingFragment StoreEntitySet="MenuCategories">
+                <ScalarProperty Name="MenuCategoryId" ColumnName="MenuCategoryId" />
+                <ScalarProperty Name="MenuCategoryName" ColumnName="MenuCategoryName" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="ShoeStore2Model.Menu">
+              <MappingFragment StoreEntitySet="Menus">
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuCategoryId" ColumnName="MenuCategoryId" />
+                <ScalarProperty Name="PageLink" ColumnName="PageLink" />
+                <ScalarProperty Name="ToolTip" ColumnName="ToolTip" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="IsDisplay" ColumnName="IsDisplay" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PageBindings">
+            <EntityTypeMapping TypeName="ShoeStore2Model.PageBinding">
+              <MappingFragment StoreEntitySet="PageBindings">
+                <ScalarProperty Name="PageBindingId" ColumnName="PageBindingId" />
+                <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
+                <ScalarProperty Name="MenuCategoryId" ColumnName="MenuCategoryId" />
+                <ScalarProperty Name="ListMenuId" ColumnName="ListMenuId" />
+                <ScalarProperty Name="AddMenuId" ColumnName="AddMenuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PermissionCategories">
+            <EntityTypeMapping TypeName="ShoeStore2Model.PermissionCategory">
+              <MappingFragment StoreEntitySet="PermissionCategories">
+                <ScalarProperty Name="PermissionCategoryId" ColumnName="PermissionCategoryId" />
+                <ScalarProperty Name="PermissionCategoryName" ColumnName="PermissionCategoryName" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="ShoeStore2Model.Permission">
+              <MappingFragment StoreEntitySet="Permissions">
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="PermissionName" ColumnName="PermissionName" />
+                <ScalarProperty Name="PermissionCategoryId" ColumnName="PermissionCategoryId" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCategories">
+            <EntityTypeMapping TypeName="ShoeStore2Model.ProductCategory">
+              <MappingFragment StoreEntitySet="ProductCategories">
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+                <ScalarProperty Name="ProductCategoryName" ColumnName="ProductCategoryName" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ShoeStore2Model.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="ImageMimeType" ColumnName="ImageMimeType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="ShoeStore2Model.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesOrderItems">
+            <EntityTypeMapping TypeName="ShoeStore2Model.SalesOrderItem">
+              <MappingFragment StoreEntitySet="SalesOrderItems">
+                <ScalarProperty Name="SalesOrderId" ColumnName="SalesOrderId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesOrders">
+            <EntityTypeMapping TypeName="ShoeStore2Model.SalesOrder">
+              <MappingFragment StoreEntitySet="SalesOrders">
+                <ScalarProperty Name="SalesOrderId" ColumnName="SalesOrderId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="SalesOrderStatusId" ColumnName="SalesOrderStatusId" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="UpdatedById" ColumnName="UpdatedById" />
+                <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesOrderStatus">
+            <EntityTypeMapping TypeName="ShoeStore2Model.SalesOrderStatu">
+              <MappingFragment StoreEntitySet="SalesOrderStatus">
+                <ScalarProperty Name="SalesOrderStatusId" ColumnName="SalesOrderStatusId" />
+                <ScalarProperty Name="SalesOrderStatusName" ColumnName="SalesOrderStatusName" />
+                <ScalarProperty Name="IsActivated" ColumnName="IsActivated" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TopMenus">
+            <EntityTypeMapping TypeName="ShoeStore2Model.TopMenu">
+              <MappingFragment StoreEntitySet="TopMenus">
+                <ScalarProperty Name="TopMenuId" ColumnName="TopMenuId" />
+                <ScalarProperty Name="TopMenuName" ColumnName="TopMenuName" />
+                <ScalarProperty Name="ToolTip" ColumnName="ToolTip" />
+                <ScalarProperty Name="PageLink" ColumnName="PageLink" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_AdminRole">
+            <EntityTypeMapping TypeName="ShoeStore2Model.View_AdminRole">
+              <MappingFragment StoreEntitySet="View_AdminRole">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Menu">
+            <EntityTypeMapping TypeName="ShoeStore2Model.View_Menu">
+              <MappingFragment StoreEntitySet="View_Menu">
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuCategoryId" ColumnName="MenuCategoryId" />
+                <ScalarProperty Name="MenuCategoryName" ColumnName="MenuCategoryName" />
+                <ScalarProperty Name="PageLink" ColumnName="PageLink" />
+                <ScalarProperty Name="ToolTip" ColumnName="ToolTip" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="IsDisplay" ColumnName="IsDisplay" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_PageBinding">
+            <EntityTypeMapping TypeName="ShoeStore2Model.View_PageBinding">
+              <MappingFragment StoreEntitySet="View_PageBinding">
+                <ScalarProperty Name="PageBindingId" ColumnName="PageBindingId" />
+                <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
+                <ScalarProperty Name="MenuCategoryId" ColumnName="MenuCategoryId" />
+                <ScalarProperty Name="MenuCategoryName" ColumnName="MenuCategoryName" />
+                <ScalarProperty Name="ListMenuId" ColumnName="ListMenuId" />
+                <ScalarProperty Name="ListMenuName" ColumnName="ListMenuName" />
+                <ScalarProperty Name="AddMenuId" ColumnName="AddMenuId" />
+                <ScalarProperty Name="AddMenuName" ColumnName="AddMenuName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Permission">
+            <EntityTypeMapping TypeName="ShoeStore2Model.View_Permission">
+              <MappingFragment StoreEntitySet="View_Permission">
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="PermissionName" ColumnName="PermissionName" />
+                <ScalarProperty Name="PermissionCategoryName" ColumnName="PermissionCategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Product">
+            <EntityTypeMapping TypeName="ShoeStore2Model.View_Product">
+              <MappingFragment StoreEntitySet="View_Product">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+                <ScalarProperty Name="ProductCategoryName" ColumnName="ProductCategoryName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="ImageMimeType" ColumnName="ImageMimeType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_SalesOrder">
+            <EntityTypeMapping TypeName="ShoeStore2Model.View_SalesOrder">
+              <MappingFragment StoreEntitySet="View_SalesOrder">
+                <ScalarProperty Name="SalesOrderId" ColumnName="SalesOrderId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="SalesOrderStatusId" ColumnName="SalesOrderStatusId" />
+                <ScalarProperty Name="SalesOrderStatusName" ColumnName="SalesOrderStatusName" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="UpdatedById" ColumnName="UpdatedById" />
+                <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="RolePermissions" TypeName="ShoeStore2Model.RolePermissions" StoreEntitySet="RolePermissions">
+            <EndProperty Name="Permissions">
+              <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+            </EndProperty>
+            <EndProperty Name="Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="TopMenuBindings" TypeName="ShoeStore2Model.TopMenuBindings" StoreEntitySet="TopMenuBindings">
+            <EndProperty Name="MenuCategories">
+              <ScalarProperty Name="MenuCategoryId" ColumnName="MenuCategoryId" />
+            </EndProperty>
+            <EndProperty Name="TopMenus">
+              <ScalarProperty Name="TopMenuId" ColumnName="TopMenuId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sp_SequenceMove" FunctionName="ShoeStore2Model.Store.sp_SequenceMove" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

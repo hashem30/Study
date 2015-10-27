@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ef68eaadaea94c779dd5aa89b9985765" Name="Diagram1">
+        <EntityTypeShape EntityType="ShoeStore2Model.Administrator" Width="1.5" PointX="12.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.AdminRole" Width="1.5" PointX="14.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.Customer" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.MailSetting" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.MenuCategory" Width="1.5" PointX="5.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.Menu" Width="1.5" PointX="8" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.PageBinding" Width="1.5" PointX="10.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.PermissionCategory" Width="1.5" PointX="7.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.Permission" Width="1.5" PointX="10" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.ProductCategory" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.Product" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.Role" Width="1.5" PointX="12.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.SalesOrderItem" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.SalesOrder" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.SalesOrderStatu" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.TopMenu" Width="1.5" PointX="8" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.View_AdminRole" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.View_Menu" Width="1.5" PointX="5.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.View_PageBinding" Width="1.5" PointX="7.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.View_Permission" Width="1.5" PointX="4.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.View_Product" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoeStore2Model.View_SalesOrder" Width="1.5" PointX="2.75" PointY="14.75" IsExpanded="true" />
+        <AssociationConnector Association="ShoeStore2Model.FK_AdminRoles_Admin" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeStore2Model.FK_AdminRoles_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeStore2Model.FK_SalesOrders_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeStore2Model.FK_Menus_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeStore2Model.FK_PageBindings_MenuCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeStore2Model.FK_PageBindings_AddMenu" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeStore2Model.FK_PageBindings_ListMenu" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeStore2Model.FK_Permissions_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeStore2Model.FK_Products_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeStore2Model.FK_SalesOrderItems_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeStore2Model.FK_SalesOrderItems_SalesOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeStore2Model.FK_SalesOrders_OrderStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeStore2Model.RolePermissions" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoeStore2Model.TopMenuBindings" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
