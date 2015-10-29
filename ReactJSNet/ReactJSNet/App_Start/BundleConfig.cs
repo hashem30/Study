@@ -11,7 +11,7 @@ namespace ReactJSNet
             bundles.Add(new BabelBundle("~/bundles/main").Include(
                 "~/Scripts/Tutorial.jsx",
                 "~/Scripts/showdown.js",
-                "~/Scripts/jquery-1.10.2.min.js"
+                "~/Scripts/jquery-2.1.4.min.js"
             ));
 
             /*
