@@ -1,0 +1,14 @@
+{
+  "name": "express_tutorial",
+  "version": "1.0.0",
+  "description": "Express",
+  "author": "Rong Zhuang <first.last@example.com>",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "ejs": "~2.4.1"
+  }
+}
