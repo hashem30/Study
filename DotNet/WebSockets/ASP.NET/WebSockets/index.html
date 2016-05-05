@@ -40,7 +40,8 @@
             };
 
             ws.onmessage = function (e) {
-                conversation.appendChild(createSpan(e.data.toString()));
+                conversation.insertBefore(createSpan(e.data.toString()), conversation.childNodes[0]);  // Insert <li> before the first child of <ul>
+                //conversation.appendChild(createSpan(e.data.toString()));
             };
 
             ws.onclose = function () {
@@ -55,10 +56,10 @@
 </head>
 <body>
     <h1>Using WebSockets</h1>
+    <div id="conversation"></div>
     <input id="message" />
     <input id="send" type="button" value="Send" />
     <input id="close" type="button" value="Close Connection" />
-    <br />
-    <div id="conversation"></div>
+    <br />    
 </body>
 </html>
