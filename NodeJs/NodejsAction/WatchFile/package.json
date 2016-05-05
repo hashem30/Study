@@ -1,0 +1,18 @@
+{
+  "name": "WatchFile",
+  "version": "1.0.0",
+  "description": "",
+  "main": "watch-server.js",
+  "dependencies": {
+    "express": "^4.13.4",
+    "socket.io": "^1.4.6"
+  },
+  "scripts": {
+    "start": "node watch-server.js",
+    "startdebug": "node debug watch-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
