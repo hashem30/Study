@@ -3,27 +3,37 @@
     ViewBag.Title = "Course";
 }
 
-<h2>Course</h2>
+<h2>Course Player</h2>
 <div class="chatcontainer">
-    <table style="width:100%" align="center">
-        <tr><td colspan="4" align="center">
-                <video id="videoplayer" class="video-js vjs-default-skin" controls preload="none" width="640" height="264" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
-                    <source src="http://localhost:4567/lecture.mp4" type="video/mp4">
+    <table width="100%">
+        <tr>
+            <td><label for="current">Current Time:</label><input type="text" id="current" readonly style="border:0; color:#f6931f; font-weight:bold;"></td>
+            <td><input type="button" id="btnplay" value="Play" /></td>
+            <td align="right"><label for="total">Total Time:</label><input type="text" id="total" readonly style="border:0; color:#f6931f; font-weight:bold;"></td>
+        </tr>
+        <tr>
+            <td colspan="3"><div id="processbar" style="margin-top:10px"></div></td>
+        </tr>
+    </table>
+    <table width="100%" style="margin-top:20px">
+        <tr>
+            <td rowspan="2" width="50%">
+                <video id="videoplayer" class="video-js vjs-default-skin" controls preload="none" width="530" height="690" data-setup="{}">
+                    <source src="http://localhost:4567/Video/lecture.mp4" type="video/mp4">
                     <track kind="captions" src="../shared/example-captions.vtt" srclang="en" label="English"></track>
                     <!-- Tracks need an ending tag thanks to IE9 -->
                     <track kind="subtitles" src="../shared/example-captions.vtt" srclang="en" label="English"></track>
                     <!-- Tracks need an ending tag thanks to IE9 -->
                     <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
                 </video>
-            </td></tr>
-        <tr>
-            <td><label for="amount">Current Time:</label><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></td>
-            <td colspan="2"><input type="button" id="btnplay" value="Play" /></td>
-            <td align="right"><input type="text" id="total" readonly style="border:0; color:#f6931f; font-weight:bold;"></td>
+            </td>
+            <td width="50%"><canvas id="myss" width="500" height="330"></canvas></td>
         </tr>
-        <tr><td colspan="4"><div id="processbar"></div></td></tr>
-        <tr><td colspan="2"><canvas id="myss" width="500" height="300"></canvas></td><td colspan="2"><canvas id="mywb" width="500" height="300"></canvas></td></tr>
+        <tr>
+            <td><canvas id="mywb" width="500" height="330"></canvas></td>
+        </tr>
     </table>    
+   
     <input type="hidden" id="groupName" value="grpjohnny" />
     <img id="blockimage" src="">
     <canvas id="workingss" style="display:none" width="500" height="300"></canvas>
@@ -106,10 +116,10 @@
             value: 1,
             slide: function (event, ui) {
                 //https://jqueryui.com/slider/#rangemax
-                $("#amount").val(getReadableTimeText(ui.value));
+                $("#current").val(getReadableTimeText(ui.value));
             },
             stop: function (event, ui) {
-                $("#amount").val(getReadableTimeText(ui.value));
+                $("#current").val(getReadableTimeText(ui.value));
                 clearScreenshot();
                 clearWhiteboard();
                 myPlayer.currentTime(ui.value);
@@ -118,7 +128,7 @@
                 }
             }
         });
-        $("#amount").val(getReadableTimeText($("#processbar").slider("value")));
+        $("#current").val(getReadableTimeText($("#processbar").slider("value")));
         $("#total").val(getReadableTimeText(4 * 60 * 60 - 30 * 60));
         // Declare a proxy to reference the hub.
         var wb = $.connection.playerHub;
@@ -211,7 +221,7 @@
                 });
                 interval = setInterval(function () {
                     $("#processbar").slider("value", $("#processbar").slider("value") + 1);
-                    $("#amount").val(getReadableTimeText($("#processbar").slider("value")));
+                    $("#current").val(getReadableTimeText($("#processbar").slider("value")));
                     //wb.server.playing($("#processbar").slider("value"));
                 }, 1000);
                 $("#btnplay").prop('value', 'Stop');
@@ -221,12 +231,13 @@
                 $.connection.hub.stop();
                 $("#btnplay").prop('value', 'Play');
                 $("#processbar").slider("value", 0);
-                $("#amount").val(getReadableTimeText($("#processbar").slider("value")));
+                $("#current").val(getReadableTimeText($("#processbar").slider("value")));
                 playstate = "stopped";
                 clearInterval(interval); // stop the interval
                 clearScreenshot();
                 clearWhiteboard();
-                myPlayer.stop();
+                myPlayer.currentTime(0);
+                myPlayer.pause();
                 //wb.server.stop();
             }            
         });
