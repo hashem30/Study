@@ -163,6 +163,7 @@
     <Content Include="204304\WB\1\VectorImage\package.pak" />
     <Content Include="204304\WB\1\VectorSequence\1.pak" />
     <Content Include="204304\WB\1\VectorSequence\package.pak" />
+    <None Include="Properties\PublishProfiles\CoursePlayer.pubxml" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\draw.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
@@ -191,7 +192,9 @@
     <Compile Include="Models\BoardLine.cs" />
     <Compile Include="Models\ScreenImage.cs" />
     <Compile Include="Models\WBLineStyle.cs" />
-    <Compile Include="Player\CourseData.cs" />
+    <Compile Include="Player\CourseTimer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignalR\PlayerHub.cs" />
     <Compile Include="SignalR\WhiteboardHub.cs" />

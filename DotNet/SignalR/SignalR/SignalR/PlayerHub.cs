@@ -14,15 +14,19 @@ namespace SignalR
 {
     public class PlayerHub : Hub
     {
-        COLDataSource _ds = new COLDataSource();
-        static int currenttime = 0;
-        static bool forcerefresh = false;
+        //COLDataSource _ds = new COLDataSource();
+        //static int currenttime = 0;
+       // static bool forcerefresh = false;
         private int currentEventTs = -1;
         private int previousMin;
         private WBEvent lastPoint;
         private WBLineStyle currentLineStyle;
-        private bool needclear = false;
-        static Timer playerTimer = new Timer();
+        //private bool needclear = false;
+        //static Timer playerTimer = new Timer();
+        static Dictionary<string, CourseTimer> dicTimer = new Dictionary<string, CourseTimer>();
+        static Dictionary<string, int> dicCurrent = new Dictionary<string, int>();
+        static Dictionary<string, bool> dicForceRefresh = new Dictionary<string, bool>();
+        static Dictionary<string, COLDataSource> dicDS = new Dictionary<string, COLDataSource>();
 
         public void JoinGroup(string groupName)
         {
@@ -33,50 +37,68 @@ namespace SignalR
         //    Clients.Group(groupName).HandleDraw(drawObject, sessionId, name);
         //}
 
-        public void SendDraw(string groupName, string x, string y, string drawtype)
-        {
-            //Clients.Group(groupName).broadcastDraw(x, y, drawtype);
-            // exclude self
-            Clients.Others.broadcastDraw(x, y, drawtype);
-        }
+        //public void SendDraw(string groupName, string x, string y, string drawtype)
+        //{
+        //    //Clients.Group(groupName).broadcastDraw(x, y, drawtype);
+        //    // exclude self
+        //    Clients.Others.broadcastDraw(x, y, drawtype);
+        //}
 
-        public void Play(string second)
+        public void Play(string group, string second)
         {            
-            currenttime = Convert.ToInt32(second);
+            int currenttime = Convert.ToInt32(second);
             //Draw();
+            CourseTimer playerTimer = new CourseTimer(group);
             playerTimer.Elapsed += playerTimer_Elapsed;
             playerTimer.Interval = 1000;             // Timer will tick every 1 seconds
             playerTimer.Enabled = true;                       // Enable the timer
             playerTimer.Start();
+            if (!dicTimer.ContainsKey(group))
+            {
+                dicTimer.Add(group, playerTimer);
+                dicCurrent.Add(group, currenttime);
+                dicForceRefresh.Add(group, false);
+                dicDS.Add(group, new COLDataSource());
+            }            
         }
-        public void Stop()
+        public void Stop(string group)
         {
-            playerTimer.Stop();
-            playerTimer.Enabled = false;
+            CourseTimer timer;
+            if (dicTimer.TryGetValue(group, out timer)) // Returns true.
+            {
+                timer.Stop();
+                timer.Enabled = false;
+                dicTimer.Remove(group);
+                dicCurrent.Remove(group);
+                dicForceRefresh.Remove(group);
+                dicDS.Remove(group);
+            }            
         }
-        public void Jump(string second)
+        public void Jump(string group, string second)
         {
-            currenttime = Convert.ToInt32(second);
-            forcerefresh = true;
+            int currenttime = Convert.ToInt32(second);
+            dicCurrent[group] = currenttime;
+            dicForceRefresh[group] = true;
         }
         private void playerTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            Draw();
-            currenttime += 1;
+            CourseTimer ct = sender as CourseTimer;
+            Draw(ct.GroupName, dicCurrent[ct.GroupName], dicForceRefresh[ct.GroupName], dicDS[ct.GroupName]);
+            dicCurrent[ct.GroupName] = dicCurrent[ct.GroupName] + 1;
         }
 
-        private void Draw()
+        private void Draw(string group, int currenttime, bool forcerefresh, COLDataSource ds)
         {
-            _ds.Root = AppDomain.CurrentDomain.BaseDirectory;
-            _ds.LectureId = "204304";
+            ds.Root = AppDomain.CurrentDomain.BaseDirectory;
+            ds.LectureId = "204304";
 
-            DrawScreenShot();
-            DrawWhiteBoard();            
+            DrawScreenShot(group, currenttime, forcerefresh, ds);
+            DrawWhiteBoard(group, currenttime, forcerefresh, ds);            
         }
 
-        private void DrawScreenShot()
+        private void DrawScreenShot(string group, int currenttime, bool forcerefresh, COLDataSource ds)
         {
-            ScreenData screen = _ds.GetScreenshotData(DataType.ScreenShot, currenttime);
+            ScreenData screen = ds.GetScreenshotData(DataType.ScreenShot, currenttime);
             if (screen == null)
             {
                 return;
@@ -88,16 +110,20 @@ namespace SignalR
 
                 foreach (KeyValuePair<int, byte[]> item in screen.Images)
                 {
+                    if (item.Value == null)
+                    {
+                        continue;
+                    } 
                     //row 0~7, col 0~7
                     int row = item.Key / Constants.MAX_ROW_NO;
                     int col = item.Key % Constants.MAX_COL_NO;
                     list.Add(new ScreenImage { Row = row, Col = col, ImageStream = Convert.ToBase64String(item.Value) });
                 }
-                Clients.All.broadcastDrawImage(jss.Serialize(list));
+                Clients.Group(group).broadcastDrawImage(jss.Serialize(list));                
             }
 
         }
-        private void DrawWhiteBoard()
+        private void DrawWhiteBoard(string group, int currenttime, bool forcerefresh, COLDataSource ds)
         {
             bool drawLines = true;
             int currentMin = Helper.GetMinute(currenttime * 1000);
@@ -114,7 +140,7 @@ namespace SignalR
                 currentEventTs = -1;
             }
 
-            WBData wbdata = _ds.GetWhiteBoardData(DataType.WB_1, currenttime);
+            WBData wbdata = ds.GetWhiteBoardData(DataType.WB_1, currenttime);
             if (wbdata == null)
             {
                 return;
@@ -127,16 +153,16 @@ namespace SignalR
                 foreach (WBLine line in wbdata.WBLines)
                 {
                     WBLineStyle linestyle = Helper.GetLineStyle(line.UColor);
-                    Clients.All.broadcastDrawWBLine(linestyle.Color, linestyle.Width, line.X0, line.Y0, line.X1, line.Y1);
+                    Clients.Group(group).broadcastDrawWBLine(linestyle.Color, linestyle.Width, line.X0, line.Y0, line.X1, line.Y1);
                     //list.Add(new BoardLine { Color = linestyle.Color, Width = linestyle.Width, X0 = line.X0, Y0 = line.Y0, X1 = line.X1, Y1 = line.Y1 });
                 }
-                Clients.All.broadcastDrawWBLineFinished();
+                Clients.Group(group).broadcastDrawWBLineFinished();
                 //Clients.All.broadcastDrawWBLine(jss.Serialize(list));
             }
 
             if (wbdata.WBEvents != null && wbdata.WBEvents.Count > 0)
             {
-                Hashtable group = GroupWBEventsBySecond(wbdata.WBEvents);
+                Hashtable htgroup = GroupWBEventsBySecond(wbdata.WBEvents);
 
                 int endMilliseconds = currenttime * 1000 % 60000;
                 int ix;
@@ -144,7 +170,7 @@ namespace SignalR
                 //List<BoardLine> list = new List<BoardLine>();
                 for (ix = currentEventTs; ix <= endMilliseconds; ix++)
                 {
-                    List<WBEvent> wbevents = group[(uint)ix] as List<WBEvent>;
+                    List<WBEvent> wbevents = htgroup[(uint)ix] as List<WBEvent>;
 
                     if (wbevents == null)
                         continue;
@@ -163,7 +189,7 @@ namespace SignalR
                                 //gctx.MoveTo(lastPoint.X * xRate, lastPoint.Y * yRate);
                                 //gctx.AddLineToPoint(wbevent.X * xRate, wbevent.Y * yRate);
                                 //gctx.StrokePath();
-                                Clients.All.broadcastDrawWBEvent(currentLineStyle.Color, currentLineStyle.Width, lastPoint.X, lastPoint.Y, wbevent.X, wbevent.Y);
+                                Clients.Group(group).broadcastDrawWBEvent(currentLineStyle.Color, currentLineStyle.Width, lastPoint.X, lastPoint.Y, wbevent.X, wbevent.Y);
                                 //list.Add(new BoardLine { Color = currentLineStyle.Color, Width = currentLineStyle.Width, X0 = lastPoint.X, Y0 = lastPoint.Y, X1 = wbevent.X, Y1 = wbevent.Y });
                                 lastPoint = wbevent;
                             }
@@ -177,8 +203,8 @@ namespace SignalR
                                     lastPoint = null;
                                     break;
                                 case -200: //Clear event
-                                    //gctx.ClearRect(rect);
-                                    Clients.All.broadcastClearReat();
+                                           //gctx.ClearRect(rect);
+                                    Clients.Group(group).broadcastClearReat();
                                     lastPoint = null;
                                     break;
                                 default:
@@ -189,7 +215,7 @@ namespace SignalR
                         }
                     }
                 }
-                Clients.All.broadcastDrawWBEventFinished();
+                Clients.Group(group).broadcastDrawWBEventFinished();
                 // Clients.All.broadcastDrawWBEvent(jss.Serialize(list));
                 currentEventTs = ix;
             }

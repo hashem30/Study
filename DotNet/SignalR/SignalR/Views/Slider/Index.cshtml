@@ -87,6 +87,7 @@
         mywb.clearRect(0, 0, $('#mywb').width(), $('#mywb').height());
     }
     $(function () {
+        $("#groupName").val("johnnygrp" + Math.floor((Math.random() * 1000) + 1));
         $("#processbar").slider({
             range: "max",
             min: 1,
@@ -101,7 +102,7 @@
                 clearScreenshot();
                 clearWhiteboard();
                 if (playstate == 'playing') {
-                    wb.server.jump($("#processbar").slider("value"));
+                    wb.server.jump($("#groupName").val(), $("#processbar").slider("value"));
                 }
             }
         });
@@ -194,7 +195,7 @@
                 //$.connection.hub.logging = true; //enable log
                 $.connection.hub.start().done(function () {
                     wb.server.joinGroup($("#groupName").val());
-                    wb.server.play($("#processbar").slider("value"));
+                    wb.server.play($("#groupName").val(), $("#processbar").slider("value"));
                 });
                 interval = setInterval(function () {
                     $("#processbar").slider("value", $("#processbar").slider("value") + 1);
@@ -204,7 +205,7 @@
                 $("#btnplay").prop('value', 'Stop');
                 playstate = "playing";                
             } else if (playstate == 'playing') {
-                $.connection.hub.stop();
+                $.connection.hub.stop($("#groupName").val());
                 $("#btnplay").prop('value', 'Play');
                 $("#processbar").slider("value", 0);
                 $("#amount").val(getReadableTimeText($("#processbar").slider("value")));

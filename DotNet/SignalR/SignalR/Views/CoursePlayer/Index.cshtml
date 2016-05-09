@@ -19,7 +19,7 @@
         <tr>
             <td rowspan="2" width="50%">
                 <video id="videoplayer" class="video-js vjs-default-skin" controls preload="none" width="530" height="690" data-setup="{}">
-                    <source src="http://localhost:4567/Video/lecture.mp4" type="video/mp4">
+                    <source src="~/204304/HighVideo/lecture.mp4" type="video/mp4">
                     <track kind="captions" src="../shared/example-captions.vtt" srclang="en" label="English"></track>
                     <!-- Tracks need an ending tag thanks to IE9 -->
                     <track kind="subtitles" src="../shared/example-captions.vtt" srclang="en" label="English"></track>
@@ -107,6 +107,8 @@
         mywb.clearRect(0, 0, $('#mywb').width(), $('#mywb').height());
     }
     $(function () {
+        //set a random name to make sure, each user has his/her session.
+        $("#groupName").val("johnnygrp"+Math.floor((Math.random() * 1000) + 1));
         var myPlayer = videojs('videoplayer');
         //var whereYouAt = myPlayer.currentTime();
         $("#processbar").slider({
@@ -124,7 +126,7 @@
                 clearWhiteboard();
                 myPlayer.currentTime(ui.value);
                 if (playstate == 'playing') {
-                    wb.server.jump(ui.value);
+                    wb.server.jump($("#groupName").val(), ui.value);
                 }
             }
         });
@@ -217,7 +219,7 @@
                 //$.connection.hub.logging = true; //enable log
                 $.connection.hub.start().done(function () {
                     wb.server.joinGroup($("#groupName").val());
-                    wb.server.play($("#processbar").slider("value"));
+                    wb.server.play($("#groupName").val(), $("#processbar").slider("value"));
                 });
                 interval = setInterval(function () {
                     $("#processbar").slider("value", $("#processbar").slider("value") + 1);
@@ -228,7 +230,7 @@
                 playstate = "playing";
                 myPlayer.play();
             } else if (playstate == 'playing') {
-                $.connection.hub.stop();
+                $.connection.hub.stop($("#groupName").val());
                 $("#btnplay").prop('value', 'Play');
                 $("#processbar").slider("value", 0);
                 $("#current").val(getReadableTimeText($("#processbar").slider("value")));
