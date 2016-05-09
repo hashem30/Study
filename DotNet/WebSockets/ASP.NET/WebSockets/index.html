@@ -28,7 +28,7 @@
         window.onload = function () {
             wireEvents();
             var conversation = $('conversation');
-            var url = 'ws://localhost:5707/WebSocketsServer2.ashx?chatName=Johnny';
+            var url = 'ws://localhost:5707/WebSocketsServer2.ashx?chatName=Johnny' + Math.floor((Math.random() * 100) + 1);;
             ws = new WebSocket(url);
 
             ws.onerror = function (e) {
