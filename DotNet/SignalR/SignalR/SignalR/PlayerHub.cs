@@ -47,7 +47,7 @@ namespace SignalR
         public void Play(string group, string second)
         {            
             int currenttime = Convert.ToInt32(second);
-            //Draw();
+            //Draw(group, currenttime, true, new COLDataSource());
             CourseTimer playerTimer = new CourseTimer(group);
             playerTimer.Elapsed += playerTimer_Elapsed;
             playerTimer.Interval = 1000;             // Timer will tick every 1 seconds
@@ -59,7 +59,7 @@ namespace SignalR
                 dicCurrent.Add(group, currenttime);
                 dicForceRefresh.Add(group, false);
                 dicDS.Add(group, new COLDataSource());
-            }            
+            }
         }
         public void Stop(string group)
         {
