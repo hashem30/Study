@@ -47,19 +47,19 @@ namespace SignalR
         public void Play(string group, string second)
         {            
             int currenttime = Convert.ToInt32(second);
-            Draw(group, 7070, true, new COLDataSource());
-            //CourseTimer playerTimer = new CourseTimer(group);
-            //playerTimer.Elapsed += playerTimer_Elapsed;
-            //playerTimer.Interval = 1000;             // Timer will tick every 1 seconds
-            //playerTimer.Enabled = true;                       // Enable the timer
-            //playerTimer.Start();
-            //if (!dicTimer.ContainsKey(group))
-            //{
-            //    dicTimer.Add(group, playerTimer);
-            //    dicCurrent.Add(group, currenttime);
-            //    dicForceRefresh.Add(group, false);
-            //    dicDS.Add(group, new COLDataSource());
-            //}
+            //Draw(group, 7070, true, new COLDataSource());
+            CourseTimer playerTimer = new CourseTimer(group);
+            playerTimer.Elapsed += playerTimer_Elapsed;
+            playerTimer.Interval = 1000;             // Timer will tick every 1 seconds
+            playerTimer.Enabled = true;                       // Enable the timer
+            playerTimer.Start();
+            if (!dicTimer.ContainsKey(group))
+            {
+                dicTimer.Add(group, playerTimer);
+                dicCurrent.Add(group, currenttime);
+                dicForceRefresh.Add(group, false);
+                dicDS.Add(group, new COLDataSource());
+            }
         }
         public void Stop(string group)
         {
