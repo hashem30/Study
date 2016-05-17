@@ -122,7 +122,7 @@ function getWBSequenceData (second) {
   //console.log(buffer);
   var indexList = filehelper.getIndexArray(buffer);
   //console.log(indexList.length);
-  var count =0;
+  /*var count =0;
   var hashmap = [];
   for (var i = 0; i < indexList.length; i++)
   {
@@ -135,13 +135,13 @@ function getWBSequenceData (second) {
         //console.log(hashmap[indexList[i].timestamp]);
       //}
     }
-  }
+  }*/
 
 
   var wbSequenceIndex = filehelper.getWBIndex(indexList);
   //console.log('indexList.length:'+indexList.length);
 
-  console.log('wbSequenceIndex.length:'+wbSequenceIndex.length);
+  //console.log('wbSequenceIndex.length:'+wbSequenceIndex.length);
 
    return filehelper.getWBSequenceData(wbSequenceDataFile, wbSequenceIndex, indexList, second);
 

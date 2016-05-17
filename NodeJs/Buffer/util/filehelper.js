@@ -176,6 +176,10 @@ exports.getIndexArray = function(buffer){
     }
   }
   arr.sort(compare);
+  //console.log(arr[117].timestamp);
+  //console.log(arr[117].grid);
+  //console.log(arr[117].offset);
+  //console.log(arr[117].length);
   //console.log(arr.length);
   return arr;
 }
@@ -205,7 +209,7 @@ exports.getWBImageData = function(wbImageDataFile, wbImageIndex, indexList, seco
   var indeximage;
   var minutes = Math.floor(second / 60);
   if (wbImageIndex[minutes]) {
-    indeximage = wbImageIndex[minutes];
+    indeximage = indexList[wbImageIndex[minutes]];
   }
   if (indeximage && indeximage.length>0) {
     var fd = fs.openSync(wbImageDataFile, 'r');
@@ -216,7 +220,7 @@ exports.getWBImageData = function(wbImageDataFile, wbImageIndex, indexList, seco
     var ix = 0;
     var pos = 0;
     while (pos < buffer.length) {
-      var wbl = new WBLine(buffer.readUInt16LE(pos), buffer.readUInt16LE(pos+2), buffer.readUInt16LE(pos+4), buffer.readUInt16LE(pos+6),buffer.readInt16LE(pos+8), buffer.readUInt16LE(pos+10));
+      var wbl = new wbline(buffer.readUInt16LE(pos), buffer.readUInt16LE(pos+2), buffer.readUInt16LE(pos+4), buffer.readUInt16LE(pos+6),buffer.readInt16LE(pos+8), buffer.readUInt16LE(pos+10));
       if (ix < 0) {
         console.log(wbl.x0);
         console.log(wbl.y0);
@@ -231,35 +235,38 @@ exports.getWBImageData = function(wbImageDataFile, wbImageIndex, indexList, seco
       pos = pos + 12;
     }
   }
+  console.log('WBImageData.length:' + res.length)
   return res;
 }
 
 exports.getWBSequenceData = function(wbSequenceDataFile, wbSequenceIndex, indexList, second) {
   var res = [];
-  var indeximage;
+  var indexsequence;
   var minutes = Math.floor(second / 60);
 
   if (wbSequenceIndex[minutes]) {
-    indeximage = wbSequenceIndex[minutes];
+    indexsequence = indexList[wbSequenceIndex[minutes]];
   }
-  console.log('indeximage.length:'+ indeximage.length);
-  console.log('indeximage.offset:'+ indeximage.offset);
-  if (indeximage && indeximage.length>0) {
-    console.log('wbSequenceDataFile:'+ wbSequenceDataFile);
+  //console.log('indexsequence.length:'+ indexsequence.length);
+  //console.log('indexsequence.offset:'+ indexsequence.offset);
+  if (indexsequence && indexsequence.length>0) {
     var fd = fs.openSync(wbSequenceDataFile, 'r');
-    var length = indeximage.length
+    var length = indexsequence.length
     var buffer = new Buffer(length);
-    fs.readSync(fd, buffer, 0, length, indeximage.offset);
+    fs.readSync(fd, buffer, 0, length, indexsequence.offset);
 
+    //console.log('buffer.length:'+ buffer.length);
     var ix = 0;
     var pos = 0;
     while (pos < buffer.length) {
-      var wbe = new WBEvent(buffer.readUInt32LE(pos), buffer.readUInt16LE(pos+2), buffer.readInt32LE(pos+4), buffer.readInt32LE(pos+6));
+      //console.log('pos:'+pos);
+      //console.log('buffer.length:'+buffer.length);
+      var wbe = new wbevent(buffer.readUInt16LE(pos), buffer.readUInt16LE(pos+2), buffer.readInt16LE(pos+4), buffer.readInt16LE(pos+6));
       if (ix < 0) {
         console.log(wbe.timestamp);
-        console.log(wbl.reserved);
-        console.log(wbl.x);
-        console.log(wbl.y);
+        console.log(wbe.reserved);
+        console.log(wbe.x);
+        console.log(wbe.y);
       }
       res[ix] = wbe;
       ix++;

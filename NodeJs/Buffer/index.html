@@ -25,30 +25,39 @@
       myss.drawImage($('#workingss')[0], 0, 0);
     });
     socket.on('drawline', function (wbdata) {
+      var lastPoint;
+      var currentColor = -10;
+      var currentWidth = 1;
+      var workingwb = $('#workingwb')[0].getContext('2d');
+      var xRate = $('#workingwb').width() / 9600;
+      var yRate = $('#workingwb').height() / 4800;
+      workingwb.fillStyle = "solid";
       var data = wbdata.wbdata;
       if (data) {
-        if (data.wblines) {
-          for (var i = 0; i < data.wblines; i++) {
-            var line = data.wblines[i];
-            drawline(getColor(line.color), getWidth(line.color), line.x0, line.y0,line.x1, line.y1);
+        var wbobj = JSON.parse(data);
+        if (wbobj.wblines) {
+          for (var i = 0; i < wbobj.wblines.length; i++) {
+            var line = wbobj.wblines[i];
+            drawline(workingwb, getColor(line.color), getWidth(line.color), line.x0, line.y0,line.x1, line.y1, xRate, yRate);
           }
           var mywb = $('#mywb')[0].getContext('2d');
           mywb.drawImage($('#workingwb')[0], 0, 0);
         }
-        if (data.wbevents) {
-          var endMilliseconds = wbdata.second * 1000 % 60000;
+        if (wbobj.wbevents) {
+          var endMilliseconds = wbobj.second * 1000 % 60000;
           for (var i = 0; i < endMilliseconds; i++) {
-            for (var j = 0; j < data.events; j++) {
-              var event = data.events[i];
-              if (event.timestamp == i) {
+            for (var j = 0; j < wbobj.wbevents.length; j++) {
+              var event = wbobj.wbevents[j];
+              if (event&&event.timestamp == i) {
                 if (event.x >=0) {
                   if (!lastPoint) {
                     lastPoint = event;
                   } else {
-                    drawline(getColor(currentColor), currentWidth, lastPoint.x, lastPoint.y,event.x, event.y);
+                    drawline(workingwb, getColor(currentColor), currentWidth, lastPoint.x, lastPoint.y,event.x, event.y, xRate, yRate);
+                    lastPoint = event;
                   }
                 } else {
-                  switch (wbevent.X) {
+                  switch (event.x) {
                      case -100: //Pen Up
                        currentColor = -8;
                        lastPoint = null;
@@ -58,16 +67,17 @@
                         lastPoint = null;
                         break;
                      default:
-                        currentColor = wbevent.X;
+                        currentColor = event.x;
                         currentWidth = getWidth(currentColor);
                         break;
                    }
                    lastPoint = null;
                 }
               }
-
             }
-          }          
+          }
+          var mywb = $('#mywb')[0].getContext('2d');
+          mywb.drawImage($('#workingwb')[0], 0, 0);
         }
       }
 
@@ -115,9 +125,9 @@
   </div>
   <!--Add script to update the page and send messages.-->
 <script type="text/javascript">
-    function drawline(color, width, x0, y0, x1, y1) {
+    function drawline(workingwb, color, width, x0, y0, x1, y1, xRate, yRate) {
       workingwb.beginPath();
-      workingwb.strokeStyle = getColor(color);
+      workingwb.strokeStyle = color;
       workingwb.lineWidth = width;
       workingwb.moveTo(x0 * xRate, y0 * yRate);
       workingwb.lineTo(x1 * xRate, y1 * yRate);
@@ -253,13 +263,7 @@
             myss.drawImage($('#workingss')[0], 0, 0);
         };*/
         // draw lines
-        var lastPoint;
-        var currentColor = -10;
-        var currentWidth = 1;
-        var workingwb = $('#workingwb')[0].getContext('2d');
-        var xRate = $('#workingwb').width() / 9600;
-        var yRate = $('#workingwb').height() / 4800;
-        workingwb.fillStyle = "solid";
+
         /*wb.client.broadcastDrawWBLine = function (color, width, x0, y0, x1, y1) {
             workingwb.beginPath();
             workingwb.strokeStyle = getColor(color);
@@ -303,6 +307,7 @@
                     wb.server.joinGroup($("#groupName").val());
                     wb.server.play($("#groupName").val(), $("#processbar").slider("value"));
                 });*/
+
                 interval = setInterval(function () {
                     $("#processbar").slider("value", $("#processbar").slider("value") + 1);
                     $("#amount").val(getReadableTimeText($("#processbar").slider("value")));

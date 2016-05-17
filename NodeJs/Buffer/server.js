@@ -8,21 +8,20 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket) {
   socket.on('timeupdate', function(data) {
-    colds.getWhiteBoardData(7070, function(wbdata) {
+    colds.getWhiteBoardData(data.second, function(wbdata) {
       console.log('wb'+data.second);
       //console.log(imagedata);
       socket.emit('drawline', {
         wbdata:wbdata
       });
     });
-/*
+
    colds.getImageData(data.second, function(imagedata) {
       console.log('ss'+data.second);
       socket.emit('draw', {
         streamlist:imagedata
       });
     });
-*/
   });
 });
 
