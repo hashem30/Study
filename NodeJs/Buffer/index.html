@@ -24,6 +24,19 @@
       var myss = $('#myss')[0].getContext('2d');
       myss.drawImage($('#workingss')[0], 0, 0);
     });
+    socket.on('drawline', function (color, width, x0, y0, x1, y1) {
+      workingwb.beginPath();
+      workingwb.strokeStyle = getColor(color);
+      workingwb.lineWidth = width;
+      workingwb.moveTo(x0 * xRate, y0 * yRate);
+      workingwb.lineTo(x1 * xRate, y1 * yRate);
+      workingwb.closePath();
+      workingwb.stroke();
+    });
+    socket.on('drawlinefinished', function (finished) {
+      var mywb = $('#mywb')[0].getContext('2d');
+      mywb.drawImage($('#workingwb')[0], 0, 0);
+    });
   </script>
   <style type="text/css">
       .chatcontainer {
@@ -173,10 +186,12 @@
             workingwb.closePath();
             workingwb.stroke();
         };
+
         wb.client.broadcastDrawWBLineFinished = function () {
             var mywb = $('#mywb')[0].getContext('2d');
             mywb.drawImage($('#workingwb')[0], 0, 0);
         };
+
         wb.client.broadcastDrawWBEvent = function (color, width, x0, y0, x1, y1) {
             workingwb.beginPath();
             workingwb.strokeStyle = getColor(color);

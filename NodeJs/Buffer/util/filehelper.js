@@ -3,6 +3,8 @@ var zlib = require('zlib');
 var binutils = require('binutils');
 var index = require('../model/index');
 var screenimage = require('../model/screenimage');
+var wbline = require('../model/wbline');
+var wbevent = require('../model/wbevent');
 var constants = require('./constants');
 var MAX_ROW_NO = 8;
 var MAX_COL_NO = 8;
@@ -184,4 +186,81 @@ function compare(a,b) {
       ret = a.grid - b.grid;
   }
   return ret;
+}
+
+exports.getWBIndex = function(indexarr){
+  var res = [];
+  //console.log(firstSecond);
+  //console.log('ht.length:' + ht.length);
+  for (var i = 0; i < indexarr.length; i++) {
+    if(!res[indexarr[i].timestamp]) {
+        res[indexarr[i].timestamp] = i;
+    }
+  }
+  //console.log('image index length=:' + res.length);
+  return res;
+}
+exports.getWBImageData = function(wbImageDataFile, wbImageIndex, indexList, second) {
+  var res = [];
+  var indeximage;
+  var minutes = Math.floor(second / 60);
+  if (wbImageIndex[minutes]) {
+    indeximage = wbImageIndex[minutes];
+  }
+  if (indeximage && indeximage.length>0) {
+    var fd = fs.openSync(imagedatafile, 'r');
+    var length = indeximage.length
+    var buffer = new Buffer(length);
+    fs.readSync(fd, buffer, 0, length, indeximage.offset);
+
+    var ix = 0;
+    var pos = 0;
+    while (pos < buffer.length) {
+      var wbl = new WBLine(buffer.readUInt16LE(pos), buffer.readUInt16LE(pos+2), buffer.readUInt16LE(pos+4), buffer.readUInt16LE(pos+6),buffer.readInt16LE(pos+8), buffer.readUInt16LE(pos+10));
+      if (ix < 0) {
+        console.log(wbl.x0);
+        console.log(wbl.y0);
+        console.log(wbl.x1);
+        console.log(wbl.y1);
+        console.log(wbl.color);
+        console.log(wbl.reserved);
+      }
+
+      res[ix] = wbl;
+      ix++;
+      pos = pos + 12;
+    }
+  }
+  return res;
+}
+
+exports.getWBSequenceData = function(wbSequenceDataFile, wbImageIndex, indexList, second) {
+  var res = [];
+  var indeximage;
+  var minutes = Math.floor(second / 60);
+  if (wbImageIndex[minutes]) {
+    indeximage = wbImageIndex[minutes];
+  }
+  if (indeximage && indeximage.length>0) {
+    var fd = fs.openSync(imagedatafile, 'r');
+    var length = indeximage.length
+    var buffer = new Buffer(length);
+    fs.readSync(fd, buffer, 0, length, indeximage.offset);
+
+    var ix = 0;
+    var pos = 0;
+    while (pos < buffer.length) {
+      var wbe = new WBEvent(buffer.readUInt32LE(pos), buffer.readUInt16LE(pos+2), buffer.readInt32LE(pos+4), buffer.readInt32LE(pos+6));
+      if (ix < 0) {
+        console.log(wbe.timestamp);
+        console.log(wbl.reserved);
+        console.log(wbl.x);
+        console.log(wbl.y);
+      }
+      res[ix] = wbe;
+      ix++;
+      pos = pos + 8;
+    }
+  }
+  return res;
 }
