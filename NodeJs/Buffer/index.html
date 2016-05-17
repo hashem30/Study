@@ -24,14 +24,53 @@
       var myss = $('#myss')[0].getContext('2d');
       myss.drawImage($('#workingss')[0], 0, 0);
     });
-    socket.on('drawline', function (color, width, x0, y0, x1, y1) {
-      workingwb.beginPath();
-      workingwb.strokeStyle = getColor(color);
-      workingwb.lineWidth = width;
-      workingwb.moveTo(x0 * xRate, y0 * yRate);
-      workingwb.lineTo(x1 * xRate, y1 * yRate);
-      workingwb.closePath();
-      workingwb.stroke();
+    socket.on('drawline', function (wbdata) {
+      var data = wbdata.wbdata;
+      if (data) {
+        if (data.wblines) {
+          for (var i = 0; i < data.wblines; i++) {
+            var line = data.wblines[i];
+            drawline(getColor(line.color), getWidth(line.color), line.x0, line.y0,line.x1, line.y1);
+          }
+          var mywb = $('#mywb')[0].getContext('2d');
+          mywb.drawImage($('#workingwb')[0], 0, 0);
+        }
+        if (data.wbevents) {
+          var endMilliseconds = wbdata.second * 1000 % 60000;
+          for (var i = 0; i < endMilliseconds; i++) {
+            for (var j = 0; j < data.events; j++) {
+              var event = data.events[i];
+              if (event.timestamp == i) {
+                if (event.x >=0) {
+                  if (!lastPoint) {
+                    lastPoint = event;
+                  } else {
+                    drawline(getColor(currentColor), currentWidth, lastPoint.x, lastPoint.y,event.x, event.y);
+                  }
+                } else {
+                  switch (wbevent.X) {
+                     case -100: //Pen Up
+                       currentColor = -8;
+                       lastPoint = null;
+                       break;
+                     case -200: //Clear event
+                        clearWhiteboard();
+                        lastPoint = null;
+                        break;
+                     default:
+                        currentColor = wbevent.X;
+                        currentWidth = getWidth(currentColor);
+                        break;
+                   }
+                   lastPoint = null;
+                }
+              }
+
+            }
+          }          
+        }
+      }
+
     });
     socket.on('drawlinefinished', function (finished) {
       var mywb = $('#mywb')[0].getContext('2d');
@@ -76,6 +115,15 @@
   </div>
   <!--Add script to update the page and send messages.-->
 <script type="text/javascript">
+    function drawline(color, width, x0, y0, x1, y1) {
+      workingwb.beginPath();
+      workingwb.strokeStyle = getColor(color);
+      workingwb.lineWidth = width;
+      workingwb.moveTo(x0 * xRate, y0 * yRate);
+      workingwb.lineTo(x1 * xRate, y1 * yRate);
+      workingwb.closePath();
+      workingwb.stroke();
+    }
     function getColor(color) {
         switch (color) {
             case -1:
@@ -90,11 +138,43 @@
                 return '#FFFFFF';
             case -10:
                 return '#FFFFFF';
-            case 6:
+            default:
                 return '#FFFFFF';
                 break;
         }
     }
+
+    function getWidth(color) {
+      switch (color) {
+        case -1:
+            return 1;
+        case -2:
+            return 1;
+        case -3:
+            return 1;
+        case -8:
+            return 1;
+        case -9:
+            return 8 * 10 / 12;
+        case -10:
+            return 39 * 10 / 12;
+        default:
+            return 1;
+      }
+    }
+    /*
+    function groupWBEventsBySecond(wbevents) {
+      var res = [];
+      for (var i = 0; i < wbevents.length; i++) {
+        var event = wbevents[i];
+        if(!res[event.timestamp]) {
+
+        }
+      }
+
+
+      return ht;
+    }*/
     function getReadableTimeText(totalseconds) {
         var hours, minutes, seconds = 0;
         seconds = totalseconds % 60;
@@ -173,6 +253,9 @@
             myss.drawImage($('#workingss')[0], 0, 0);
         };*/
         // draw lines
+        var lastPoint;
+        var currentColor = -10;
+        var currentWidth = 1;
         var workingwb = $('#workingwb')[0].getContext('2d');
         var xRate = $('#workingwb').width() / 9600;
         var yRate = $('#workingwb').height() / 4800;

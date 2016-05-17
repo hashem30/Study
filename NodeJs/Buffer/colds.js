@@ -1,8 +1,10 @@
 var path = require("path");
 var index = require('./model/index');
 var screenimage = require('./model/screenimage');
+var wbdata = require('./model/wbdata');
 var filehelper = require('./util/filehelper');
 var fs = require('fs');
+
 //var hashTable = require("node-hashtable");
 
 var ssIndexFile = path.join(__dirname, '/204304/ScreenShot/High/package.pak');
@@ -62,15 +64,20 @@ exports.getImageData = function (second, callback) {
 
 }
 
-exports.getWhiteBoardData = function (second, callback, callback2) {
+exports.getWhiteBoardData = function (second, callback) {
   var lines = getWBImageData(second);
+  var events = getWBSequenceData(second);
+  var res = new wbdata(second, lines, events);
+  var json = JSON.stringify(res);
+  callback(json);
+  /*
   if (lines&&lines.length>0) {
     for (var i = 0; i < lines.length; i++) {
       var line = lines[i];
       callback(getColor(line.color), getWidth(line.color), line.x0, line.y0, line.x1, line.y1);
     }
     //callback2();
-  }
+  }*/
   //callback(-1, 1, 1, 2, 3, 666);
 }
 
@@ -108,8 +115,9 @@ function getWBImageData(second) {
 }
 
 function getWBSequenceData (second) {
-  filehelper.unzipIndexFile(wbSequenceIndexFile, unzippedWbSequenceIndexFile);
+  //filehelper.unzipIndexFile(wbSequenceIndexFile, unzippedWbSequenceIndexFile);
   var buffer = filehelper.getIndexFile(unzippedWbSequenceIndexFile);
+  //console.log('buffer.length:'+buffer.length);
   //console.log(buffer.length);
   //console.log(buffer);
   var indexList = filehelper.getIndexArray(buffer);
@@ -130,9 +138,12 @@ function getWBSequenceData (second) {
   }
 
 
-  var wbImageIndex = filehelper.getWBIndex(indexList);
+  var wbSequenceIndex = filehelper.getWBIndex(indexList);
+  //console.log('indexList.length:'+indexList.length);
 
-   return filehelper.getWBSequenceData(wbSequenceDataFile, wbImageIndex, indexList, second);
+  console.log('wbSequenceIndex.length:'+wbSequenceIndex.length);
+
+   return filehelper.getWBSequenceData(wbSequenceDataFile, wbSequenceIndex, indexList, second);
 
 }
 

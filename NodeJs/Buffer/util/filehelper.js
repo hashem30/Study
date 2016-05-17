@@ -208,7 +208,7 @@ exports.getWBImageData = function(wbImageDataFile, wbImageIndex, indexList, seco
     indeximage = wbImageIndex[minutes];
   }
   if (indeximage && indeximage.length>0) {
-    var fd = fs.openSync(imagedatafile, 'r');
+    var fd = fs.openSync(wbImageDataFile, 'r');
     var length = indeximage.length
     var buffer = new Buffer(length);
     fs.readSync(fd, buffer, 0, length, indeximage.offset);
@@ -234,15 +234,19 @@ exports.getWBImageData = function(wbImageDataFile, wbImageIndex, indexList, seco
   return res;
 }
 
-exports.getWBSequenceData = function(wbSequenceDataFile, wbImageIndex, indexList, second) {
+exports.getWBSequenceData = function(wbSequenceDataFile, wbSequenceIndex, indexList, second) {
   var res = [];
   var indeximage;
   var minutes = Math.floor(second / 60);
-  if (wbImageIndex[minutes]) {
-    indeximage = wbImageIndex[minutes];
+
+  if (wbSequenceIndex[minutes]) {
+    indeximage = wbSequenceIndex[minutes];
   }
+  console.log('indeximage.length:'+ indeximage.length);
+  console.log('indeximage.offset:'+ indeximage.offset);
   if (indeximage && indeximage.length>0) {
-    var fd = fs.openSync(imagedatafile, 'r');
+    console.log('wbSequenceDataFile:'+ wbSequenceDataFile);
+    var fd = fs.openSync(wbSequenceDataFile, 'r');
     var length = indeximage.length
     var buffer = new Buffer(length);
     fs.readSync(fd, buffer, 0, length, indeximage.offset);
@@ -262,5 +266,6 @@ exports.getWBSequenceData = function(wbSequenceDataFile, wbImageIndex, indexList
       pos = pos + 8;
     }
   }
+  console.log('WBSequenceData.length:' + res.length)
   return res;
 }

@@ -8,30 +8,21 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket) {
   socket.on('timeupdate', function(data) {
-    colds.getWhiteBoardData(data.second, function(color, width, x0, y0, x1, y1) {
+    colds.getWhiteBoardData(7070, function(wbdata) {
       console.log('wb'+data.second);
       //console.log(imagedata);
-      /*socket.emit('drawline', {
-        color:color,
-        width:width,
-        x0:x0,
-        y0:y0,
-        x1:x1,
-        y1:y1
-      });*/
-    }, function(){
-      socket.emit('drawlinefinished', {
-        finished:'done'
-      })
+      socket.emit('drawline', {
+        wbdata:wbdata
+      });
     });
-    /*
+/*
    colds.getImageData(data.second, function(imagedata) {
       console.log('ss'+data.second);
       socket.emit('draw', {
         streamlist:imagedata
       });
-    });*/
-
+    });
+*/
   });
 });
 
