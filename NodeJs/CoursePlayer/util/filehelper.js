@@ -82,56 +82,12 @@ exports.getImageData = function(imagedatafile, imageindex, callback) {
     var col = imageobj.grid & 0xf;
 
     var offset = imageindex[i].offset;
-    //console.log(offset);
     var length = imageindex[i].length;
-    //console.log(length);
-
-    //console.log(imageindex[i].offset)
-    //console.log(row);
-    //console.log(col);
     var buffer = new Buffer(length);
-    //console.log(buffer);
-    //console.log(offset);
     fs.readSync(fd, buffer, 0, length, offset);
-    //console.log(buffer);
     var base64 = buffer.toString('base64');
-    //console.log(base64);
     res[index]= new screenimage(row, col, base64);
     index++;
-    //console.log(res[index].row);
-    //console.log(res[index].col);
-    //break;
-    /*var readableStream = fs.createReadStream(null, {fd: fd, start: offset, end: offset + length, autoClose:false});
-    var data = '';
-    readableStream.on('data', function(chunk) {
-      //data+=chunk;
-      //console.log(chunk);
-      console.log(row);
-      console.log(col);
-      res[index]= new screenimage(row, col, new Buffer("").toString('base64'));
-      //console.log(res[index]);
-      //console.log(index);
-      index++;
-    });
-    readableStream.on('end', function() {
-      //console.log(data)
-    //  console.log(imageobj)
-    //console.log(imageindex[i].row);
-    //console.log(imageindex[i].col);
-
-      //console.log(newscreenimange);
-      //res[index]= new screenimage(row, col, new Buffer(data).toString('base64'));
-      //console.log(res[index]);
-      //index++;
-      //console.log(newscreenimange.row);
-      //console.log(newscreenimange.col);
-      if (index==64) {
-
-        //console.log(newscreenimange.streamimage);
-       var json = JSON.stringify(res);
-       callback(json);
-      }
-    });*/
   }
   var json = JSON.stringify(res);
   callback(json);
