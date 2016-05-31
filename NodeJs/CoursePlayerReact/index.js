@@ -20,3 +20,22 @@ function render() {
 
 render()
 store.subscribe(render)
+
+
+import 'babel-polyfill'
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import playerApp from './reducers'
+import App from './components/App'
+
+let store = createStore(playerApp)
+const rootEl = document.getElementById('root')
+
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  rootEl
+)
